@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+  calculator-grpc:
+    build:
+      context: .
+      dockerfile: grpc.Dockerfile
+    ports:
+      - "8081:8081"
+    environment:
+      CALCG_PORT: 8081
+    restart: unless-stopped
+
+  calculator-rest:
+    build:
+      context: .
+      dockerfile: rest.Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      CALCR_PORT: 8080
+    restart: unless-stopped
+
+  calculator-swagger:
+    build:
+      context: .
+      dockerfile: swagger.Dockerfile
+    ports:
+      - "8082:8082"
+    environment:
+      SWG_PORT: 8082
+      SWG_SWAGGERFILE: /swagger.json
+    restart: unless-stopped
+    depends_on:
+      - calculator-rest

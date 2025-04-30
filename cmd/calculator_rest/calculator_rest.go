@@ -2,6 +2,7 @@ package main
 
 import (
 	"Calculator/internal/controller"
+	"github.com/rs/cors"
 	"github.com/spf13/viper"
 	"log/slog"
 	"net/http"
@@ -21,9 +22,10 @@ func main() {
 	SetViperConfig()
 
 	http.HandleFunc("/calc", controller.RestHandler)
+	r := cors.Default().Handler(http.DefaultServeMux)
 
 	slog.Info("Listening on port " + viper.GetString("port"))
-	err := http.ListenAndServe(":"+viper.GetString("port"), nil)
+	err := http.ListenAndServe(":"+viper.GetString("port"), r)
 	if err != nil {
 		return
 	}

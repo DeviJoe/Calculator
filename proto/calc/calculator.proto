@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package calc;
+
+option go_package = "calculator.v1";
+
+
+message Sentence {
+  string payload = 1;
+}
+
+message Result {
+  uint32 code = 1;
+  string message = 2;
+}
+
+service Calculator {
+  rpc Calc (Sentence) returns (Result);
+}

@@ -1,0 +1,125 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Calculator API",
+    "description": "API for performing calculations with the Calculator service",
+    "version": "1.0",
+    "contact": {
+      "name": "API Support",
+      "url": "http://www.example.com/support",
+      "email": "support@example.com"
+    },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    },
+    "termsOfService": "http://swagger.io/terms/"
+  },
+  "host": "localhost:8080",
+  "basePath": "/",
+  "schemes": ["http"],
+  "paths": {
+    "/calc": {
+      "post": {
+        "summary": "Perform calculation",
+        "description": "Processes a series of calculation operations and returns the results",
+        "operationId": "performCalculation",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "operations",
+            "description": "Calculation operations to perform",
+            "required": true,
+            "schema": {
+              "type": "array",
+              "example": [{
+                "type": "calc",
+                "var": "x",
+                "op": "+",
+                "left": "10",
+                "right": "5"
+              }, {
+                "type": "print",
+                "var": "x"
+              }],
+              "items": {
+                "$ref": "#/definitions/Operation"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful calculation",
+            "schema": {
+              "$ref": "#/definitions/Result"
+            }
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Operation": {
+      "type": "object",
+      "required": ["type"],
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": ["calc", "print"],
+          "description": "Operation type: 'calc' for calculation or 'print' to mark a variable as printable"
+        },
+        "var": {
+          "type": "string",
+          "description": "Variable name to store the result or to print"
+        },
+        "op": {
+          "type": "string",
+          "enum": ["+", "-", "*"],
+          "description": "Operator for calculation: '+', '-', or '*'"
+        },
+        "left": {
+          "type": ["string", "number"],
+          "description": "Left operand - can be a variable name or a numeric value"
+        },
+        "right": {
+          "type": ["string", "number"],
+          "description": "Right operand - can be a variable name or a numeric value"
+        }
+      }
+    },
+    "Result": {
+      "type": "object",
+      "properties": {
+        "items": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ResultItem"
+          }
+        }
+      }
+    },
+    "ResultItem": {
+      "type": "object",
+      "properties": {
+        "var": {
+          "type": "string",
+          "description": "Variable name"
+        },
+        "value": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Calculated value"
+        }
+      }
+    }
+  }
+}
