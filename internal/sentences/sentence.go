@@ -1,8 +1,8 @@
-package types
+package sentences
 
 import (
-	"Calculator/pkg/sentences/errors"
-	"Calculator/pkg/sentences/interfaces"
+	"Calculator/internal/sentences/errors"
+	"Calculator/internal/sentences/interfaces"
 	"strconv"
 )
 
@@ -15,7 +15,7 @@ type Sentence struct {
 	rightResCh chan int64
 }
 
-func NewSentence(
+func newSentence(
 	variable *Variable,
 	op Operation,
 	left *interfaces.SentenceArgument,
@@ -41,7 +41,9 @@ func getValueFromVariable(arg interfaces.SentenceArgument, resCh chan int64) (va
 	}
 }
 
-func (s *Sentence) Calculate(errChan chan error) {
+// calculate функция-goroutine, принимает канал, куда или запишет ошибку,
+// или nil -- если ошибок нет
+func (s *Sentence) calculate(errChan chan<- error) {
 	leftValue, err := getValueFromVariable(s.left.(interfaces.SentenceArgument), s.leftResCh)
 	if err != nil {
 		errChan <- err
@@ -85,9 +87,10 @@ func (s *Sentence) Calculate(errChan chan error) {
 	for i := range len(s.variable.notifyChannels) {
 		s.variable.notifyChannels[i] <- value
 	}
+	errChan <- nil
 	return
 }
 
-func (s *Sentence) GetVariable() *Variable {
+func (s *Sentence) getVariable() *Variable {
 	return s.variable
 }

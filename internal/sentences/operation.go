@@ -1,7 +1,7 @@
-package types
+package sentences
 
 import (
-	"Calculator/pkg/sentences/errors"
+	"Calculator/internal/sentences/errors"
 )
 
 const (

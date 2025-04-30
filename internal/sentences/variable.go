@@ -1,7 +1,7 @@
-package types
+package sentences
 
 import (
-	"Calculator/pkg/sentences/errors"
+	"Calculator/internal/sentences/errors"
 	"sync"
 )
 
@@ -15,7 +15,7 @@ type Variable struct {
 	notifyChannels []chan int64
 }
 
-func NewVariable(name string) *Variable {
+func newVariable(name string) *Variable {
 	return &Variable{
 		name:           name,
 		value:          0,
@@ -28,6 +28,10 @@ func NewVariable(name string) *Variable {
 
 func (v *Variable) Name() string {
 	return v.name
+}
+
+func (v *Variable) SetPrintable(b bool) {
+	v.isPrintable = b
 }
 
 func (v *Variable) GetValueIsItSetting() (value int64, isValueSetting bool) {

@@ -1,4 +1,4 @@
-package types
+package sentences
 
 import (
 	"sync"
@@ -22,7 +22,7 @@ func TestVariable_SetValue(t *testing.T) {
 		wantErr bool
 	}{
 		{
-			name: "SetValue to New Variable",
+			name: "setValue to New Variable",
 			fields: fields{
 				name:           "x",
 				value:          0,
@@ -35,7 +35,7 @@ func TestVariable_SetValue(t *testing.T) {
 			wantErr: false,
 		},
 		{
-			name: "SetValue to existing Variable",
+			name: "setValue to existing Variable",
 			fields: fields{
 				name:           "x",
 				value:          35,
@@ -59,7 +59,7 @@ func TestVariable_SetValue(t *testing.T) {
 				mu:             &sync.Mutex{},
 			}
 			if err := v.SetValue(tt.args.value); (err != nil) != tt.wantErr {
-				t.Errorf("SetValue() error = %v, wantErr %v", err, tt.wantErr)
+				t.Errorf("setValue() error = %v, wantErr %v", err, tt.wantErr)
 			}
 		})
 	}

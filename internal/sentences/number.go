@@ -1,4 +1,4 @@
-package types
+package sentences
 
 type Number int64
 

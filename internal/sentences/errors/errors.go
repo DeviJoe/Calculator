@@ -21,7 +21,7 @@ type ResettingVariableValueError struct {
 
 func (e *ResettingVariableValueError) Error() string {
 	return fmt.Sprintf(
-		"Trying resetting %d value for variable %s with it value %d (varaible alrady setted)",
+		"Trying resetting by %d value for variable %s with it value %d (varaible alrady setted)",
 		e.TryingSettingValue,
 		e.VariableName,
 		e.OldValue,
