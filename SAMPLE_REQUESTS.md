@@ -50,3 +50,14 @@ curl --location 'http://localhost:8080/calc' \
 ```
 ### Response
 ![third_resp.png](img/third_resp.png)
+
+## Forth sample (GRPC)
+### Request
+```json
+{
+    "payload": "[{ \"type\": \"calc\", \"op\": \"+\", \"var\": \"x\", \"left\": 1,  \"right\": 2 },{ \"type\": \"print\", \"var\": \"x\" }]"
+}
+```
+
+### Response
+![grpc_test.png](img/grpc_test.png)
