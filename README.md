@@ -2,6 +2,8 @@
 
 This project provides a calculator service with both gRPC and REST APIs, along with Swagger documentation.
 
+Algorithm description: [Russian](HOW_IT_WORKS.md) | [English](HOW_IT_WORKS_ENGLISH.md)
+
 ## Services
 
 1. **gRPC Server** - Processes calculation requests via gRPC protocol
